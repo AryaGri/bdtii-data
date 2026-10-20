@@ -60,6 +60,8 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--code);padding:1px
 
 .btn:hover,button:hover{filter:brightness(1.08)}
 .vbtn{align-items:flex-start;justify-content:flex-start}
+.vbtn.off{opacity:.45;pointer-events:none;border-style:dashed}
+.vbtn.off span::after{content:" · скоро"}
 footer{color:var(--muted);font-size:13px}
 </style>
 </head>
@@ -74,15 +76,15 @@ footer{color:var(--muted);font-size:13px}
 <section>
   <div class="zipbox">
     <p><strong>Всё одним архивом.</strong> Внутри SQL-скрипты учебных баз, CSV-файлы и папка «Практика_2.2» с данными ко всем вариантам. Распакуйте в папку проекта.</p>
-    <a class="btn primary" href="data/olympiad_data.zip" download>Скачать olympiad_data.zip</a>
+    <a class="btn primary" id="b-zip" href="data/olympiad_data.zip" download>Скачать olympiad_data.zip</a>
   </div>
   <div class="status" id="s-global" role="status"></div>
 </section>
 
 <section>
   <h2>Практика: данные к задачам 2.2</h2>
-  <p>Файлы к каждому варианту из практической тетради. Сохраните файл в папку проекта под тем же именем, что указано в условии задачи. Данные к вариантам Б-4, Б-5 и Б-11 появятся позже.</p>
-  <div class="vgrid"><a class="btn vbtn" href="data/vars/A1/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-1</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A2/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-2</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A3/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-3</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A4/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-4</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A5/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-5</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A6/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-6</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A7/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-7</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A8/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-8</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A9/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-9</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/B1/book_sales.csv" download="book_sales.csv"><b>Б-1</b><span>book_sales.csv</span></a><a class="btn vbtn" href="data/vars/B2/flat_data.csv" download="flat_data.csv"><b>Б-2</b><span>flat_data.csv</span></a><a class="btn vbtn" href="data/vars/B3/student_performance.csv" download="student_performance.csv"><b>Б-3</b><span>student_performance.csv</span></a><a class="btn vbtn" href="data/vars/B6/11_drinks.csv" download="11_drinks.csv"><b>Б-6</b><span>11_drinks.csv</span></a><a class="btn vbtn" href="data/vars/B7/12_sales.csv" download="12_sales.csv"><b>Б-7</b><span>12_sales.csv</span></a><a class="btn vbtn" href="data/vars/B8/13_vacuums.csv" download="13_vacuums.csv"><b>Б-8</b><span>13_vacuums.csv</span></a><a class="btn vbtn" href="data/vars/B9/17_books.csv" download="17_books.csv"><b>Б-9</b><span>17_books.csv</span></a><a class="btn vbtn" href="data/vars/B10/20_students.csv" download="20_students.csv"><b>Б-10</b><span>20_students.csv</span></a></div>
+  <p>Файлы к каждому варианту из практической тетради. Сохраните файл в папку проекта под тем же именем, что указано в условии задачи. Если кнопка серая — файл к этому варианту ещё не загружен.</p>
+  <div class="vgrid"><a class="btn vbtn" href="data/vars/A1/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-1"><b>А-1</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A2/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-2"><b>А-2</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A3/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-3"><b>А-3</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A4/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-4"><b>А-4</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A5/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-5"><b>А-5</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A6/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-6"><b>А-6</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A7/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-7"><b>А-7</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A8/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-8"><b>А-8</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A9/cinema_sessions.csv" download="cinema_sessions.csv" data-var="А-9"><b>А-9</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/B1/book_sales.csv" download="book_sales.csv" data-var="Б-1"><b>Б-1</b><span>book_sales.csv</span></a><a class="btn vbtn" href="data/vars/B2/flat_data.csv" download="flat_data.csv" data-var="Б-2"><b>Б-2</b><span>flat_data.csv</span></a><a class="btn vbtn" href="data/vars/B3/student_performance.csv" download="student_performance.csv" data-var="Б-3"><b>Б-3</b><span>student_performance.csv</span></a><a class="btn vbtn" href="data/vars/B4/sport_results.csv" download="sport_results.csv" data-var="Б-4"><b>Б-4</b><span>sport_results.csv</span></a><a class="btn vbtn" href="data/vars/B5/pizza_discounts.csv" download="pizza_discounts.csv" data-var="Б-5"><b>Б-5</b><span>pizza_discounts.csv</span></a><a class="btn vbtn" href="data/vars/B6/11_drinks.csv" download="11_drinks.csv" data-var="Б-6"><b>Б-6</b><span>11_drinks.csv</span></a><a class="btn vbtn" href="data/vars/B7/12_sales.csv" download="12_sales.csv" data-var="Б-7"><b>Б-7</b><span>12_sales.csv</span></a><a class="btn vbtn" href="data/vars/B8/13_vacuums.csv" download="13_vacuums.csv" data-var="Б-8"><b>Б-8</b><span>13_vacuums.csv</span></a><a class="btn vbtn" href="data/vars/B9/17_books.csv" download="17_books.csv" data-var="Б-9"><b>Б-9</b><span>17_books.csv</span></a><a class="btn vbtn" href="data/vars/B10/20_students.csv" download="20_students.csv" data-var="Б-10"><b>Б-10</b><span>20_students.csv</span></a><a class="btn vbtn" href="data/vars/B11/fridge_prices.csv" download="fridge_prices.csv" data-var="Б-11"><b>Б-11</b><span>fridge_prices.csv</span></a></div>
 </section>
 
 <section>
@@ -167,6 +169,7 @@ courier_id, name, transport, hire_date</div>
 </section>
 <footer>Материалы к рабочей тетради «Интеллектуальный мегаполис. Потенциал», ИТ-класс, направление «Большие данные и технологии ИИ». МГТУ им. Н. Э. Баумана.</footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 (function(){
   var gstat=document.getElementById('s-global');
@@ -181,6 +184,30 @@ courier_id, name, transport, hire_date</div>
         }, function(){ show(t); });
       }).catch(function(){ say('Не удалось загрузить файл. Скачайте его кнопкой «Скачать .sql».'); });
     });
+  });
+
+  // Кнопки вариантов: серые, пока файла нет в репозитории
+  var VARS=[].slice.call(document.querySelectorAll('a.vbtn'));
+  VARS.forEach(function(a){
+    fetch(a.getAttribute('href'),{method:'HEAD',cache:'no-store'}).then(function(r){ if(!r.ok) a.classList.add('off'); }).catch(function(){ a.classList.add('off'); });
+  });
+  // Архив собирается в браузере из актуальных файлов; если не вышло — скачивается готовый olympiad_data.zip
+  var COMMON=["autoservice.sql","online_school.sql","cinema_sessions.csv","delivery_orders.csv","couriers.csv","students_health.csv","hist_demo.png","hist_classwork.png","hist_homework.png","hist_mock.png"];
+  var bz=document.getElementById('b-zip');
+  bz.addEventListener('click',function(e){
+    if(!window.JSZip) return;
+    e.preventDefault(); bz.style.pointerEvents='none'; say('Собираю архив…');
+    var zip=new JSZip();
+    var jobs=COMMON.map(function(f){ return fetch('data/'+f).then(function(r){ if(r.ok) return r.arrayBuffer().then(function(b){ zip.file(f,b); }); }); });
+    VARS.forEach(function(a){
+      var h=a.getAttribute('href'); var name=h.split('/').pop();
+      jobs.push(fetch(h,{cache:'no-store'}).then(function(r){ if(r.ok) return r.arrayBuffer().then(function(b){ zip.file('Практика_2.2/'+a.dataset.var+'/'+name,b); }); }).catch(function(){}));
+    });
+    Promise.all(jobs).then(function(){ return zip.generateAsync({type:'blob'}); }).then(function(blob){
+      var u=URL.createObjectURL(blob); var t=document.createElement('a'); t.href=u; t.download='olympiad_data.zip';
+      document.body.appendChild(t); t.click(); t.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); say('Архив скачан.');
+    }).catch(function(){ say('Не удалось собрать архив, скачиваю готовый.'); location.href='data/olympiad_data.zip'; })
+      .finally(function(){ bz.style.pointerEvents=''; });
   });
   function show(t){
     var ta=document.createElement('textarea'); ta.value=t; ta.style.cssText='width:100%;height:200px;font-family:var(--f-mono);background:var(--code);color:var(--fg)';
