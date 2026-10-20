@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Данные к рабочей тетради БДиТИИ</title>
+<meta name="description" content="Учебные базы PostgreSQL и CSV-файлы к рабочей тетради «Интеллектуальный мегаполис. Потенциал», направление БДиТИИ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column; datasets as uniform rows (name · schema · actions), external links as a compact list */
+:root{
+  --bg:#f5f7f8; --surface:#ffffff; --fg:#17232b; --muted:#5a6b75; --line:#d9e1e5;
+  --accent:#0f6e7a; --accent-ink:#ffffff; --chip:#e4f1f2; --code:#eef3f5;
+  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f171b; --surface:#16222a; --fg:#e3ecef; --muted:#93a6b0; --line:#28363e;
+  --accent:#4fb8c4; --accent-ink:#06262a; --chip:#183238; --code:#1b2a32; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f171b; --surface:#16222a; --fg:#e3ecef; --muted:#93a6b0; --line:#28363e;
+  --accent:#4fb8c4; --accent-ink:#06262a; --chip:#183238; --code:#1b2a32; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-inline:20px;padding-block:40px 64px;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0;text-wrap:balance}
+p{margin:0;max-width:65ch}
+.lead{color:var(--muted)}
+section{display:flex;flex-direction:column;gap:16px}
+.zipbox{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.zipbox p{min-width:0;flex:1 1 280px}
+button,.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box;font:600 14px var(--f-body);border-radius:7px;padding:9px 14px;cursor:pointer;border:1px solid var(--accent);background:transparent;color:var(--accent)}
+button.primary,.btn.primary{background:var(--accent);color:var(--accent-ink)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.5;cursor:default}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.row .info{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fname{font-family:var(--f-mono);font-weight:600;font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;background:var(--chip);color:var(--fg);padding:2px 8px;border-radius:99px}
+.schema{font-family:var(--f-mono);font-size:13px;background:var(--code);padding:8px 10px;border-radius:6px;overflow-x:auto;white-space:pre;color:var(--fg)}
+.actions{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.status{font-size:13px;color:var(--muted);min-height:1.2em}
+.links{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.links a{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none}
+.links a strong{color:var(--accent);font-weight:600}
+.links a span{color:var(--muted);font-size:14px}
+.links a:hover strong{text-decoration:underline}
+.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:65ch}
+code{font-family:var(--f-mono);font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px}
+.vbtn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;font-weight:400}
+.vbtn b{font-size:15px}.vbtn span{font-family:var(--f-mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.actions{flex-direction:row;flex-wrap:wrap}}
+
+.btn:hover,button:hover{filter:brightness(1.08)}
+.vbtn{align-items:flex-start;justify-content:flex-start}
+footer{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Интеллектуальный мегаполис. Потенциал · ИТ-класс · БДиТИИ</div>
+  <h1>Данные к рабочей тетради</h1>
+  <p class="lead">Учебные базы PostgreSQL, CSV-файлы для pandas и гистограммы к заданиям тетради. Все наборы сгенерированы для занятий; совпадения имён случайны.</p>
+</header>
+
+<section>
+  <div class="zipbox">
+    <p><strong>Всё одним архивом.</strong> Внутри SQL-скрипты учебных баз, CSV-файлы и папка «Практика_2.2» с данными ко всем вариантам. Распакуйте в папку проекта.</p>
+    <a class="btn primary" href="data/olympiad_data.zip" download>Скачать olympiad_data.zip</a>
+  </div>
+  <div class="status" id="s-global" role="status"></div>
+</section>
+
+<section>
+  <h2>Практика: данные к задачам 2.2</h2>
+  <p>Файлы к каждому варианту из практической тетради. Сохраните файл в папку проекта под тем же именем, что указано в условии задачи. Данные к вариантам Б-4, Б-5 и Б-11 появятся позже.</p>
+  <div class="vgrid"><a class="btn vbtn" href="data/vars/A1/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-1</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A2/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-2</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A3/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-3</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A4/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-4</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A5/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-5</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A6/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-6</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A7/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-7</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A8/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-8</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/A9/cinema_sessions.csv" download="cinema_sessions.csv"><b>А-9</b><span>cinema_sessions.csv</span></a><a class="btn vbtn" href="data/vars/B1/book_sales.csv" download="book_sales.csv"><b>Б-1</b><span>book_sales.csv</span></a><a class="btn vbtn" href="data/vars/B2/flat_data.csv" download="flat_data.csv"><b>Б-2</b><span>flat_data.csv</span></a><a class="btn vbtn" href="data/vars/B3/student_performance.csv" download="student_performance.csv"><b>Б-3</b><span>student_performance.csv</span></a><a class="btn vbtn" href="data/vars/B6/11_drinks.csv" download="11_drinks.csv"><b>Б-6</b><span>11_drinks.csv</span></a><a class="btn vbtn" href="data/vars/B7/12_sales.csv" download="12_sales.csv"><b>Б-7</b><span>12_sales.csv</span></a><a class="btn vbtn" href="data/vars/B8/13_vacuums.csv" download="13_vacuums.csv"><b>Б-8</b><span>13_vacuums.csv</span></a><a class="btn vbtn" href="data/vars/B9/17_books.csv" download="17_books.csv"><b>Б-9</b><span>17_books.csv</span></a><a class="btn vbtn" href="data/vars/B10/20_students.csv" download="20_students.csv"><b>Б-10</b><span>20_students.csv</span></a></div>
+</section>
+
+<section>
+  <h2>Базы данных PostgreSQL</h2>
+  <ol class="steps">
+    <li>Создайте пустую базу: в pgAdmin правой кнопкой по Databases, Create, Database (имя <code>autoservice</code>), или командой <code>CREATE DATABASE autoservice;</code></li>
+    <li>Откройте Query Tool для этой базы (в DBeaver: SQL-редактор).</li>
+    <li>Нажмите «Копировать SQL» (или скачайте файл и откройте его), вставьте скрипт в редактор и выполните (F5 в pgAdmin, Alt+X в DBeaver).</li>
+  </ol>
+  <div class="list">
+    <div class="row">
+      <div class="info">
+        <div class="fname">autoservice.sql</div>
+        <div class="tags"><span class="tag">занятия П4–П5</span><span class="tag">кейс 2.1</span><span class="tag">45 клиентов · 276 ремонтов</span></div>
+        <div class="schema">clients (id, name, phone, city)
+cars (id, client_id, brand, year)
+mechanics (id, name, specialization)
+repairs (id, car_id, mechanic_id, repair_date, cost)</div>
+      </div>
+      <div class="actions"><button data-copy="data/autoservice.sql">Копировать SQL</button><a class="btn" href="data/autoservice.sql" download>Скачать .sql</a></div>
+    </div>
+    <div class="row">
+      <div class="info">
+        <div class="fname">online_school.sql</div>
+        <div class="tags"><span class="tag">ДЗ по SQL</span><span class="tag">пробный вариант</span><span class="tag">120 учеников · 374 платежа</span></div>
+        <div class="schema">teachers (id, name, subject)
+courses (id, title, category, teacher_id, price)
+students (id, name, grade, school, reg_date)
+enrollments (id, student_id, course_id, enroll_date, status)
+payments (id, enrollment_id, pay_date, amount)</div>
+      </div>
+      <div class="actions"><button data-copy="data/online_school.sql">Копировать SQL</button><a class="btn" href="data/online_school.sql" download>Скачать .sql</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>CSV для pandas</h2>
+  <div class="list">
+    <div class="row">
+      <div class="info">
+        <div class="fname">cinema_sessions.csv</div>
+        <div class="tags"><span class="tag">демовариант, кейс 2.2</span><span class="tag">150 строк</span></div>
+        <div class="schema">cinema, movie, genre, price, seats_sold, session_date</div>
+      </div>
+      <div class="actions"><a class="btn" href="data/cinema_sessions.csv" download>Скачать</a></div>
+    </div>
+    <div class="row">
+      <div class="info">
+        <div class="fname">delivery_orders.csv + couriers.csv</div>
+        <div class="tags"><span class="tag">ДЗ П1 и П3</span><span class="tag">600 заказов, есть пропуски</span></div>
+        <div class="schema">order_id, courier_id, district, order_date, distance_km, price, delivery_min, rating
+courier_id, name, transport, hire_date</div>
+      </div>
+      <div class="actions"><a class="btn" href="data/delivery_orders.csv" download>Заказы</a><a class="btn" href="data/couriers.csv" download>Курьеры</a></div>
+    </div>
+    <div class="row">
+      <div class="info">
+        <div class="fname">students_health.csv</div>
+        <div class="tags"><span class="tag">занятие П2</span><span class="tag">пробный вариант</span><span class="tag">400 строк</span></div>
+        <div class="schema">student_id, sex, grade, height, weight, steps_per_day, screen_hours</div>
+      </div>
+      <div class="actions"><a class="btn" href="data/students_health.csv" download>Скачать</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Открытые базы и тренажёры</h2>
+  <div class="links">
+    <a href="https://pgexercises.com/" target="_blank" rel="noopener"><strong>PostgreSQL Exercises</strong><span>Около 80 задач на базе загородного клуба; запросы выполняются прямо в браузере, скрипт базы можно скачать и развернуть у себя.</span></a>
+    <a href="https://postgrespro.ru/education/demodb" target="_blank" rel="noopener"><strong>Демобаза «Авиаперевозки» (Postgres Pro)</strong><span>Большая реалистичная база на русском: бронирования, билеты, рейсы. Есть версии разного размера.</span></a>
+    <a href="https://github.com/pthom/northwind_psql" target="_blank" rel="noopener"><strong>Northwind для PostgreSQL</strong><span>Классическая база «заказы — товары — клиенты» одним скриптом northwind.sql.</span></a>
+    <a href="https://github.com/devrimgunduz/pagila" target="_blank" rel="noopener"><strong>Pagila</strong><span>Прокат DVD: фильмы, актёры, платежи. Удобна для JOIN и оконных функций.</span></a>
+    <a href="https://sql-academy.org/ru/trainer" target="_blank" rel="noopener"><strong>SQL Academy</strong><span>Русскоязычный онлайн-тренажёр с проверкой ответа.</span></a>
+    <a href="https://stepik.org/course/63054" target="_blank" rel="noopener"><strong>Stepik: «Интерактивный тренажер по SQL»</strong><span>Бесплатный курс с автопроверкой запросов.</span></a>
+    <a href="https://www.db-fiddle.com/" target="_blank" rel="noopener"><strong>DB Fiddle</strong><span>Песочница PostgreSQL в браузере, если на компьютере нет СУБД.</span></a>
+    <a href="https://data.mos.ru/" target="_blank" rel="noopener"><strong>Портал открытых данных Москвы</strong><span>Сотни наборов в CSV/JSON для собственных мини-исследований на pandas.</span></a>
+    <a href="https://github.com/mwaskom/seaborn-data" target="_blank" rel="noopener"><strong>seaborn-data</strong><span>Небольшие учебные CSV (tips, penguins, titanic) для графиков и группировок.</span></a>
+    <a href="https://colab.research.google.com/" target="_blank" rel="noopener"><strong>Google Colab</strong><span>Python с numpy, pandas и matplotlib в браузере без установки.</span></a>
+  </div>
+</section>
+<footer>Материалы к рабочей тетради «Интеллектуальный мегаполис. Потенциал», ИТ-класс, направление «Большие данные и технологии ИИ». МГТУ им. Н. Э. Баумана.</footer>
+</div>
+<script>
+(function(){
+  var gstat=document.getElementById('s-global');
+  function say(t){gstat.textContent=t;}
+  document.querySelectorAll('button[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-copy'), label=b.textContent;
+      fetch(f).then(function(r){ if(!r.ok) throw new Error(); return r.text(); }).then(function(t){
+        return navigator.clipboard.writeText(t).then(function(){
+          b.textContent='Скопировано'; say('Скрипт '+f.split('/').pop()+' в буфере обмена. Вставьте его в Query Tool и выполните.');
+          setTimeout(function(){b.textContent=label;},2500);
+        }, function(){ show(t); });
+      }).catch(function(){ say('Не удалось загрузить файл. Скачайте его кнопкой «Скачать .sql».'); });
+    });
+  });
+  function show(t){
+    var ta=document.createElement('textarea'); ta.value=t; ta.style.cssText='width:100%;height:200px;font-family:var(--f-mono);background:var(--code);color:var(--fg)';
+    gstat.textContent='Буфер обмена недоступен. Выделите текст ниже (Ctrl+A) и скопируйте:'; gstat.appendChild(ta); ta.focus(); ta.select();
+  }
+})();
+</script>
+</body>
+</html>
